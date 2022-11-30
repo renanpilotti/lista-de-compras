@@ -1,47 +1,33 @@
 const express = require('express');
+const cors = require('cors');
+const dotEnv = require('dotenv').config()
+
+const port = process.env.PORT || 5000;
+
 const app = express();
-var cors = require('cors');
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+app.use(express.json());
 
-const mongodb = require('mongodb')
+const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
-const client = new MongoClient('mongodb+srv://rmpilotti:merengues@cluster0.vt2cn1x.mongodb.net/?retryWrites=true&w=majority')
+const client = new MongoClient(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_KEY}@cluster0.vt2cn1x.mongodb.net/?retryWrites=true&w=majority`);
 
 let array = [];
 
-app.post('/lista', (req, res) => {
-    async function addItem() {
-        try {
-            await client.connect();
-    
-            const db = client.db('todo').collection("items");
-    
-            const item = req.body;
-    
-            array.push(item)
-    
-            const p = await db.insertOne(item)
-    
-            res.send(item);
-        }
-        finally {
-            await client.close();
-        }
-    }
-    addItem().catch(console.dir);
-})
-
 app.get('/lista', async (req, res) => {
+
     if (array.length === 0) {
         async function getData() {
             try {
                 await client.connect();
 
-                const db = client.db('todo').collection("items");
-                const myDoc = await db.find().forEach(item => array.push(item))
+                const db = client.db('todo');
+                const collection = db.collection("items");
+
+                await collection.find().forEach(item => array.push(item));
+                
                 res.json(array);
             } catch (err) {
                 console.log(err.stack);
@@ -50,10 +36,33 @@ app.get('/lista', async (req, res) => {
                 await client.close();
             }
         }
-        getData().catch(console.dir);
+        getData().catch(console.log);
     } else {
-        res.json(array)
+        res.json(array);
     }
 })
 
-app.listen('5000', () => console.log('port 5000 initiated'))
+app.post('/lista', (req, res) => {
+    async function addItem() {
+        try {
+            await client.connect();
+    
+            const db = client.db('todo');
+            const collection = db.collection("items");
+    
+            const item = req.body;
+    
+            await collection.insertOne(item);
+
+            array.push(item);
+            
+            res.json(item);
+        }
+        finally {
+            await client.close();
+        }
+    }
+    addItem().catch(console.log);
+})
+
+app.listen(port, () => console.log(`port ${port} initiated`));
