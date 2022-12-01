@@ -40,7 +40,7 @@ function App() {
     } else {
       setLoading(true)
       let idItem = new Date().getTime().toString();
-      let product = { idItem, nomeItem };
+      let product = { idItem, nomeItem: nomeItem.trim().toLowerCase() };
 
       for (let i = 0; i < categorias.length; i++) {
         if (categorias[i].includes(product.nomeItem)) {
@@ -60,10 +60,10 @@ function App() {
             "content-type": "application/json",
           },
           body: JSON.stringify(product)
-        })
+        });
 
-      const addedProduct = await res.json()
-      setLista((prev) => [...prev, addedProduct].sort((a, b) => a.indice - b.indice))
+      const addedProduct = await res.json();
+      setLista((prev) => [...prev, addedProduct].sort((a, b) => a.indice - b.indice));
 
       setNomeItem('');
       setLoading(false);
@@ -89,31 +89,39 @@ function App() {
       <h1 className='title'>listinha</h1>
       <AlertaMensagem {...alerta} />
       <form onSubmit={handleSubmit}>
-        <input type="text"
-          placeholder='ex. banana'
-          onChange={(e) => setNomeItem(e.target.value)}
-          value={nomeItem} />
-        {loading ?
-          (<button className='add-btn' type='submit' disabled>
+        {loading ? (<>
+          <input type="text"
+            placeholder='ex. banana'
+            onChange={(e) => setNomeItem(e.target.value)}
+            value={nomeItem}
+            className='disabled'
+            disabled />
+          <button className='add-btn disabled' type='submit' disabled>
             <FaSpinner className={'spin'} />
-          </button>)
-          :
-          (<button className='add-btn' type='submit'>
+          </button>
+        </>) : (<>
+          <input type="text"
+            placeholder='ex. banana'
+            onChange={(e) => setNomeItem(e.target.value)}
+            value={nomeItem} />
+          <button className='add-btn' type='submit'>
             <FaPlus />
-          </button>)}
+          </button>
+        </>)}
+
       </form>
       <Lista lista={lista} />
 
       {lista.length > 0 &&
         <div className="footer">
           {loading ?
-            (<button className="clear-btn" onClick={limparLista} disabled>
-            <FaSpinner className={'spin'} />
-          </button>)
+            (<button className="clear-btn disabled" onClick={limparLista} disabled>
+              <FaRegTrashAlt />
+            </button>)
             :
             (<button className="clear-btn" onClick={limparLista}>
-            <FaRegTrashAlt />
-          </button>)}
+              <FaRegTrashAlt />
+            </button>)}
         </div>}
     </div>
   );

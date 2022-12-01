@@ -3,7 +3,7 @@ export const categorias = [
     ['manteiga', 'margarina', 'leite', 'nata', 'chá', 'cha', 'cafe', 'café', 'filtro'],
     ['massa de pastel', 'massa de lasanha', 'hamburguer', 'hamburguinho'], 
     ['sabão', 'detergente', 'papel higiênico', 'papel toalha', 'esponja', 'esponjinha', 'sabonete', 'limpeza'],
-    ['atum', 'azeitona', 'molho de tomate', 'massa', 'maionese', 'ketchup', 'mostarda'],
+    ['atum', 'azeitona', 'molho de tomate', 'massa', 'maionese', 'ketchup', 'mostarda', 'molho de pimenta'],
     ['bolacha', 'salgadinho', 'laricas', 'larica', 'pipoca'],
     ['vinho', 'cerveja', 'refri', 'energético'],
     ['cigarro']
