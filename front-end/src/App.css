@@ -1,0 +1,148 @@
+.container {
+  padding: 3% 2%;
+  width: 300px;
+  margin: 5% auto;
+  box-shadow: 0px 0px 5px 0px #b3b2b251;
+  border-radius: 5px;
+  background-color: #fff;
+  text-transform: capitalize;
+}
+
+.title {
+  font-size: 1.8rem;
+  text-align: center;
+  color: #49434e;
+  margin: 0 0 2%;
+}
+
+.alerta {
+  padding: 2%;
+  color: #4d4d4d;
+  text-align: center;
+  font-size: .7rem;
+  border-radius: 3px;
+  min-height: 12px;
+  margin-top: 0;
+  transition: .5s ease;
+  opacity: 0;
+  vertical-align: baseline;
+}
+
+.alerta-erro {
+  background-color: hsla(0, 100%, 50%, 0.3);
+  opacity: 1;
+}
+
+.alerta-sucesso {
+  background-color: hsla(132, 80%, 50%, 0.3);
+  opacity: 1;
+}
+
+form {
+  display: flex;
+  margin-bottom: 10%;
+}
+
+form input {
+  flex-grow: 1;
+  border: none;
+  background-color: #fafafa;
+  border-radius: 5px 0 0 5px;
+  height: 34.5px;
+  padding-left: 4%;
+  font-size: .85rem;
+  color: rgb(60, 60, 60);
+  font-family: 'Comfortaa', cursive;
+}
+
+input:focus {
+  outline-color: rgba(201, 201, 201, 0.666);  
+}
+
+input:focus + .add-btn {
+  outline: 1px solid rgba(201, 201, 201, 0.666);
+  transition: none;
+}
+
+.add-btn {
+  background-color: rgba(255, 151, 177, 0.741);
+  border-radius: 0 5px 5px 0;
+  padding: 2% 5%;
+  font-size: .9rem;
+  transition: linear .3s;
+  color: #4a4a4a;
+}
+
+.add-btn:hover {
+  background-color: rgba(255, 121, 155, 0.832);
+}
+
+.add-btn:disabled {
+  cursor: default;
+}
+
+.item-lista {
+  margin: 5% 0;
+  padding: 2% 0;
+  border-radius: 5px;
+  font-size: .9rem;
+  letter-spacing: 1px;
+  color: #323232;
+}
+
+.item-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.item-lista input {
+  margin-right: 10px;
+  transform: scale(0.85);
+}
+
+.item-lista input:checked~label {
+  text-decoration: line-through;
+  color: #b3b3b3;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10% 0 0;
+  border-radius: 5px;
+  font-size: .85rem;
+  text-transform: lowercase;
+  color: #323232;
+}
+
+button {
+  border: 0;
+  font-size: .7rem;
+  cursor: pointer;
+  color: #212121f2;
+}
+
+.clear-btn {
+  padding: 2% 5%;
+  font-size: 1.1rem;
+  transition: linear .3s;
+  background-color: #f3a0a259;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  color: #535353da;
+}
+
+.spin {
+  animation: spin 3s ease infinite;
+}
+
+@keyframes spin {
+  0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);}
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 5%;
+  }
+}
